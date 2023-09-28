@@ -86,23 +86,25 @@ async function request(method: HttpMethod, endpoint: string, params?: unknown) {
 
 function getHtmlOperations() {
   return operations.map((operation) => {
-    return `<li class="operation">
-      <h3>${operation.name}</h3>
-      <form class="operation-form">
-        <input type="hidden" name="$endpoint" value="${operation.endpoint}" />
-        <input type="hidden" name="$method" value="${operation.method}" />
-        ${Object.entries(operation.fields)
-          .map(([name, type]) => {
-            const tag = type === "json" ? "textarea" : type;
-            return `<div class="field">
-              <label for="${name}">${name}</label>
-              <${tag} name="${name}" id="${name}"></${tag}>
-            </div>`;
-          })
-          .join("")}
-        <button type="submit">Submit</button>
-      </form>
-    </li>`;
+    return `<div class="card">
+    <li class="operation">
+        <h3>${operation.name}</h3>
+        <form class="operation-form">
+          <input type="hidden" name="$endpoint" value="${operation.endpoint}" />
+          <input type="hidden" name="$method" value="${operation.method}" />
+          ${Object.entries(operation.fields)
+            .map(([name, type]) => {
+              const tag = type === "json" ? "textarea" : type;
+              return `<div class="field">
+                <label for="${name}">${name}</label>
+                <${tag} name="${name}" id="${name}"></${tag}>
+              </div>`;
+            })
+            .join("")}
+          <button type="submit">Submit</button>
+        </form>
+      </li>
+    </div>`;
   });
 }
 
